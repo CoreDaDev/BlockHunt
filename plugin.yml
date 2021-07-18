@@ -1,0 +1,18 @@
+---
+name: BlockHunt
+version: 1.0.0
+api: 3.0.0
+main: OguzhanUmutlu\BlockHunt\BlockHunt
+
+commands:
+  blockhunt:
+    description: Block Hunt command
+  blockhuntadmin:
+    description: Block Hunt admin commands
+    permission: blockhunt.admin.cmd
+
+permissions:
+  blockhunt.admin.cmd:
+    description: /blockhuntadmin
+    default: op
+...

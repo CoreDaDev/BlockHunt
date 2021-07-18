@@ -1,0 +1,33 @@
+---
+use-in-game: "&c> Use this command in-game."
+
+args-join: "join"
+already-in-game: "&c> You are already in an arena."
+no-arena: "&c> No available arenas were found."
+redirect: "&a> You are redirecting to arena named %0..."
+
+args-leave: "leave"
+not-in-arena: "&c> You are not in arena."
+success-left: "&a> You successfully left from arena!"
+
+usage: "&c> Usage: %0"
+
+game-started: "&a> Game started!"
+starts-in: "&aGame starts in &e%0"
+
+won-title: "&a%0 won!"
+died-title: "&cYou died!"
+
+join-message: "&a> %0 joined the game."
+left-message: "&c> %0 left from game."
+died-message: "&4> %0 died."
+died-message-second: "&4> Seeker named %0 has been caught."
+
+leave-item: "&r&cLeave from arena"
+
+transform-soon: "§eYou will be transformed into solid block in §a%0§e."
+transform-wait: "§c> You need to wait §b%0§c seconds to transform again!"
+transform-error: "§c> You cannot transform to solid block when you are in a block!"
+transform-error1: "§c> You need to be non-solid to transform."
+transform-success: "§a> You successfully transformed into §b%0§a!"
+...
