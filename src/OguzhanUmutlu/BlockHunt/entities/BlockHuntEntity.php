@@ -42,7 +42,7 @@ class BlockHuntEntity extends FallingBlock {
             return true;
         }
         if($this->lastMove && $this->lastMove+3 <= time()) {
-            if($this->lastMove && $this->lastMove+5 <= time()) {
+            if($this->lastMove+5 <= time()) {
                 $this->level->setBlock($this, $this->block);
                 $this->arena->blocks[$this->player->getName()] = $this->level->getBlock($this);
                 $this->flagForDespawn();
