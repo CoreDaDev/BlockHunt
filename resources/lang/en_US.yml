@@ -5,6 +5,7 @@ args-join: "join"
 already-in-game: "&c> You are already in an arena."
 no-arena: "&c> No available arenas were found."
 redirect: "&a> You are redirecting to arena named %0..."
+join-popup: "&a> You need &b%0&a players for the game to start."
 
 args-leave: "leave"
 not-in-arena: "&c> You are not in arena."
