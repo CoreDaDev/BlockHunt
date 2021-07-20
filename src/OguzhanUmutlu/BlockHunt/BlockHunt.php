@@ -39,7 +39,7 @@ class BlockHunt extends PluginBase {
         $this->arenaConfig = new Config($this->getDataFolder() . "arenas.yml");
         $this->arenaManager = new ArenaManager();
         $this->saveDefaultConfig();
-        $this->saveResource("lang/".$this->getConfig()->getNested("lang").".yml");
+        $this->saveResource($this->getDataFolder()."lang/".$this->getConfig()->getNested("lang").".yml");
         $this->messages = (new Config("lang/".$this->getConfig()->getNested("lang").".yml"))->getAll();
         foreach($this->arenaConfig->getAll() as $arenaData) {
             $data = new ArenaData();
