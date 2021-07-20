@@ -304,6 +304,10 @@ class Arena extends Task {
         $player->getArmorInventory()->clearAll();
         $player->setGamemode(2);
         $this->broadcast(self::T("join-message", [$player->getName()]));
+        if(count($this->getPlayers()) < $this->data->minPlayer)
+            foreach($this->getPlayers() as $p)
+                if($p->getId() != $player->getId())
+                    $p->sendPopup(self::T("join-popup", [$this->data-count($this->getPlayers())]));
     }
 
     public function removePlayer(Player $player): void {
