@@ -14,6 +14,7 @@ use pocketmine\entity\EffectInstance;
 use pocketmine\item\Item;
 use pocketmine\level\Level;
 use pocketmine\level\Position;
+use pocketmine\level\sound\ClickSound;
 use pocketmine\Player;
 use pocketmine\scheduler\Task;
 use pocketmine\Server;
@@ -128,8 +129,10 @@ class Arena extends Task {
         else if($this->countdown <= 0) {
             $this->start();
         } else {
-            foreach($this->getPlayers() as $player)
+            foreach($this->getPlayers() as $player) {
                 $player->sendTitle("§r", self::T("starts-in", [$this->countdown]), 0, 20, 0);
+                $player->level->addSound(new ClickSound($player), [$player]);
+            }
             $this->countdown--;
         }
     }
