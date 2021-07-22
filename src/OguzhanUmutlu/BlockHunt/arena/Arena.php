@@ -307,6 +307,7 @@ class Arena extends Task {
 
     public function addPlayer(Player $player): void {
         if(isset($this->getPlayers()[$player->getName()])) return;
+        $this->scoreboard->addPlayer($player);
         if(count($this->seekers) < count($this->hunters))
             $this->seekers[$player->getName()] = $player;
         else $this->hunters[$player->getName()] = $player;
