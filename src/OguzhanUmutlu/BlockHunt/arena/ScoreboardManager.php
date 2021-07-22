@@ -47,7 +47,7 @@ class ScoreboardManager {
             count($this->arena->getPlayers()),
             count($this->arena->getSeekers()),
             count($this->arena->getHunters()),
-            $this->arena->getData()-count($this->arena->getPlayers()),
+            $this->arena->getData()->minPlayer-count($this->arena->getPlayers()),
             $this->arena->getData()->minPlayer,
             $this->arena->getData()->maxPlayer,
             $this->arena->getCountdown(),
