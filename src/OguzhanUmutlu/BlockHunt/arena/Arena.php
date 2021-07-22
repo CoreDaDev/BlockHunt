@@ -82,6 +82,7 @@ class Arena extends Task {
             $this->createSeekerBlock($player);
         }
         $this->countdown = 0;
+        $this->scoreboard->tickScoreboard();
     }
 
     /**
@@ -120,6 +121,7 @@ class Arena extends Task {
         if(count($this->getPlayers()) >= $this->data->minPlayer) {
             $this->setStatus(self::STATUS_ARENA_STARTING);
             $this->countdown = $this->data->startingCountdown;
+            $this->scoreboard->tickScoreboard();
         }
     }
 
@@ -137,6 +139,7 @@ class Arena extends Task {
                 $player->level->addSound(new ClickSound($player), [$player]);
             }
             $this->countdown--;
+            $this->scoreboard->tickScoreboard();
         }
     }
 
