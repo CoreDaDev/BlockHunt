@@ -54,36 +54,36 @@ class ScoreboardManager {
                     return str_replace(
                         $keys,
                         $values,
-                        BlockHunt::T("scoreboards.waiting.".$line)
+                        BlockHunt::sT($line)
                     );
-                }, range(0, BlockHunt::getInstance()->messages["scoreboards"]["waiting"])));
+                }, BlockHunt::getInstance()->messages["scoreboards"]["waiting"]));
                 break;
             case Arena::STATUS_ARENA_STARTING:
                 $data = array_merge([" "], array_map(function($line) use ($values, $keys) {
                     return str_replace(
                         $keys,
                         $values,
-                        BlockHunt::T("scoreboards.starting.".$line)
+                        BlockHunt::sT($line)
                     );
-                }, range(0, BlockHunt::getInstance()->messages["scoreboards"]["starting"])));
+                }, BlockHunt::getInstance()->messages["scoreboards"]["starting"]));
                 break;
             case Arena::STATUS_ARENA_RUNNING:
                 $data = array_merge([" "], array_map(function($line) use ($values, $keys) {
                     return str_replace(
                         $keys,
                         $values,
-                        BlockHunt::T("scoreboards.running.".$line)
+                        BlockHunt::sT($line)
                     );
-                }, range(0, BlockHunt::getInstance()->messages["scoreboards"]["running"])));
+                }, BlockHunt::getInstance()->messages["scoreboards"]["running"]));
                 break;
             case Arena::STATUS_ARENA_CLOSED:
                 $data = array_merge([" "], array_map(function($line) use ($values, $keys) {
                     return str_replace(
                         $keys,
                         $values,
-                        BlockHunt::T("scoreboards.closed.".$line)
+                        BlockHunt::sT($line)
                     );
-                }, range(0, BlockHunt::getInstance()->messages["scoreboards"]["closed"])));
+                }, BlockHunt::getInstance()->messages["scoreboards"]["closed"]));
                 break;
             default:
                 $data = [" ", "An error occured!"];
