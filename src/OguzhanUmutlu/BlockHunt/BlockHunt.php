@@ -28,6 +28,8 @@ class BlockHunt extends PluginBase {
     /*** @var Config */
     public $arenaConfig;
     public $messages;
+    /*** @var Config */
+    public $messageConfig;
     /*** @var ArenaManager */
     public $arenaManager;
 
@@ -39,7 +41,8 @@ class BlockHunt extends PluginBase {
         $this->arenaManager = new ArenaManager();
         $this->saveDefaultConfig();
         $this->saveResource($this->getDataFolder()."lang/".$this->getConfig()->getNested("lang").".yml");
-        $this->messages = (new Config("lang/".$this->getConfig()->getNested("lang").".yml"))->getAll();
+        $this->messageConfig = new Config("lang/".$this->getConfig()->getNested("lang").".yml");
+        $this->messages = $this->messageConfig->getAll();
         foreach($this->arenaConfig->getAll() as $arenaData) {
             $data = new ArenaData();
             $data->minPlayer = $arenaData["minPlayer"];
