@@ -67,7 +67,7 @@ class Arena extends Task {
      * @throws Exception
      */
     public function start(): void {
-        $this->status = self::STATUS_ARENA_RUNNING;
+        $this->setStatus(self::STATUS_ARENA_RUNNING);
         $this->broadcast(self::T("game-started"));
         foreach($this->getPlayers() as $player)
             $player->teleport($this->data->spawn);
@@ -115,7 +115,7 @@ class Arena extends Task {
 
     private function waitingTick(): void {
         if(count($this->getPlayers()) >= $this->data->minPlayer) {
-            $this->status = self::STATUS_ARENA_STARTING;
+            $this->setStatus(self::STATUS_ARENA_STARTING);
             $this->countdown = $this->data->startingCountdown;
         }
     }
@@ -125,7 +125,7 @@ class Arena extends Task {
      */
     private function startingTick(): void {
         if(count($this->getPlayers()) < $this->data->minPlayer)
-            $this->status = self::STATUS_ARENA_WAITING;
+            $this->setStatus(self::STATUS_ARENA_WAITING);
         else if($this->countdown <= 0) {
             $this->start();
         } else {
@@ -196,7 +196,7 @@ class Arena extends Task {
         $this->blocks = [];
         $this->freeze = [];
         $this->lastTransform = [];
-        $this->status = self::STATUS_ARENA_WAITING;
+        $this->setStatus(self::STATUS_ARENA_WAITING);
     }
 
     public function onRun(int $currentTick) {
@@ -266,7 +266,7 @@ class Arena extends Task {
     }
 
     public function createWorld(): void {
-        $this->status = self::STATUS_ARENA_SETUP;
+        $this->setStatus(self::STATUS_ARENA_SETUP);
         if(!file_exists($this->getWorldDataPath())) {
             $this->stop(true);
             BlockHunt::getInstance()->getLogger()->warning($this->data->name . " arena crashed! Error: Saved zip not found.");
@@ -278,11 +278,11 @@ class Arena extends Task {
         $zipArchive->extractTo($this->getServer()->getDataPath()."worlds");
         $zipArchive->close();
         $this->getServer()->loadLevel($this->data->map);
-        $this->status = self::STATUS_ARENA_WAITING;
+        $this->setStatus(self::STATUS_ARENA_WAITING);
     }
 
     public function removeWorld(): void {
-        $this->status = self::STATUS_ARENA_SETUP;
+        $this->setStatus(self::STATUS_ARENA_SETUP);
         $level = $this->getLevel();
         if($level instanceof Level) {
             foreach($level->getPlayers() as $player)
@@ -294,6 +294,11 @@ class Arena extends Task {
 
     public function getServer(): Server {
         return Server::getInstance();
+    }
+
+    /*** @param int $status */
+    public function setStatus(int $status): void {
+        $this->status = $status;
     }
 
     public function addPlayer(Player $player): void {
