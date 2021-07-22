@@ -8,7 +8,6 @@ use pocketmine\Player;
 
 class ScoreboardManager {
     private const EMPTY_CACHE = ["§0\e", "§1\e", "§2\e", "§3\e", "§4\e", "§5\e", "§6\e", "§7\e", "§8\e", "§9\e", "§a\e", "§b\e", "§c\e", "§d\e", "§e\e"];
-    private $scoreboards = [];
     private $arena;
     private $networkBound = [];
     private $lastState = [];
@@ -18,16 +17,12 @@ class ScoreboardManager {
     }
 
     public function addPlayer(Player $pl): void {
-        $this->scoreboards[$pl->getName()] = $pl;
         ScoreboardAPI::setScore($pl, BlockHunt::T("scoreboards.title"), ScoreboardAPI::SORT_ASCENDING);
         $this->updateScoreboard($pl);
     }
 
     private function updateScoreboard(Player $pl): void {
-        if (!isset($this->scoreboards[$pl->getName()])) {
-            $this->addPlayer($pl);
-            return;
-        } elseif (!$pl->isOnline()) {
+        if(!$pl->isOnline()) {
             $this->removePlayer($pl);
             return;
         }
@@ -111,12 +106,11 @@ class ScoreboardManager {
     }
 
     public function resetScoreboard(): void {
-        foreach ($this->scoreboards as $player) $this->removePlayer($player);
+        foreach ($this->arena->getPlayers() as $player) $this->removePlayer($player);
         $this->networkBound = [];
     }
 
     public function removePlayer(Player $pl): void {
-        unset($this->scoreboards[$pl->getName()]);
         unset($this->networkBound[$pl->getName()]);
         ScoreboardAPI::removeScore($pl);
     }
