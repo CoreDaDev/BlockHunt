@@ -31,4 +31,30 @@ transform-wait: "§c> Tekrar dönüşmek için §b%0§c saniye beklemelisin!"
 transform-error: "§c> Dönüşmek için bir bloğun içinde olmamalısın!"
 transform-error1: "§c> Dönüşmek için katı olmamalısın."
 transform-success: "§a> Başarıyla §b%0§a bloğuna dönüştünüz!"
+
+scoreboards:
+  title: "§l§eTntTag"
+  # {name} - Arenanın adını döner
+  # {players} - Yaşayan oyuncuların sayısını döner
+  # {seekers} - Saklanan oyuncuların sayısını döner
+  # {hunters} - Avcı oyuncuların sayısını döner
+  # {required_players} - Minimum oyuncu sayısı - oyuncu sayısını döner
+  # {min_players} - Minimum oyuncu sayısını döner
+  # {max_players} - Maximum oyuncu sayısını döner
+  # {countdown} - Sayacı döner
+  # {endsafter} - Oyunun kaç saniye sonra biteceğini döner
+  waiting:
+    - "§e{required_players} oyuncu bekleniyor..."
+    - "§aOyuncular: {players}/{max_players}"
+  starting:
+    - "§eOyun {countdown} saniye"
+    - "§eiçinde başlayacak"
+    - "§aOyuncular: {players}/{max_players}"
+  running:
+    - "§aYaşayan avcılar: {hunters}"
+    - "§aYaşayan saklananlar: {seekers}"
+    - "§bSaklananlar {endsafter} saniye"
+    - "§bsonra kazanacak!"
+  closed:
+    - "§cArena kapandı!"
 ...

@@ -24,7 +24,7 @@ class Arena extends Task {
     public const STATUS_ARENA_WAITING = 0;
     public const STATUS_ARENA_STARTING = 1;
     public const STATUS_ARENA_RUNNING = 2;
-    public const STATUS_ARENA_SETUP = 3;
+    public const STATUS_ARENA_CLOSED = 3;
 
     private $private = false;
     /*** @var Player[] */
@@ -45,10 +45,13 @@ class Arena extends Task {
     /*** @var ArenaData */
     private $data;
     private $id;
+    /*** @var ScoreboardManager */
+    private $scoreboard;
 
     public function __construct(ArenaData $data) {
         $this->data = $data;
         $this->id = Utils::getUniqueNumber();
+        $this->scoreboard = new ScoreboardManager($this);
     }
 
     public function initArena(): void {
@@ -266,7 +269,7 @@ class Arena extends Task {
     }
 
     public function createWorld(): void {
-        $this->setStatus(self::STATUS_ARENA_SETUP);
+        $this->setStatus(self::STATUS_ARENA_CLOSED);
         if(!file_exists($this->getWorldDataPath())) {
             $this->stop(true);
             BlockHunt::getInstance()->getLogger()->warning($this->data->name . " arena crashed! Error: Saved zip not found.");
@@ -282,7 +285,7 @@ class Arena extends Task {
     }
 
     public function removeWorld(): void {
-        $this->setStatus(self::STATUS_ARENA_SETUP);
+        $this->setStatus(self::STATUS_ARENA_CLOSED);
         $level = $this->getLevel();
         if($level instanceof Level) {
             foreach($level->getPlayers() as $player)
@@ -299,6 +302,7 @@ class Arena extends Task {
     /*** @param int $status */
     public function setStatus(int $status): void {
         $this->status = $status;
+        $this->scoreboard->tickScoreboard();
     }
 
     public function addPlayer(Player $player): void {
@@ -316,6 +320,7 @@ class Arena extends Task {
             foreach($this->getPlayers() as $p)
                 if($p->getId() != $player->getId())
                     $p->sendPopup(self::T("join-popup", [$this->data->minPlayer-count($this->getPlayers())]));
+        $this->scoreboard->tickScoreboard();
     }
 
     public function removePlayer(Player $player): void {
@@ -342,7 +347,9 @@ class Arena extends Task {
                 unset($this->hunters[$player->getName()]);
                 break;
         }
+        $this->scoreboard->removePlayer($player);
         $this->broadcast(self::T("left-message", [$player->getName()]));
+        $this->scoreboard->tickScoreboard();
     }
 
     public function setDead(Player $player): void {
@@ -379,6 +386,8 @@ class Arena extends Task {
                 unset($this->hunters[$player->getName()]);
                 break;
         }
+        $this->scoreboard->removePlayer($player);
+        $this->scoreboard->tickScoreboard();
     }
 
     public const TEAM_SEEKERS = "seekers";
