@@ -332,6 +332,7 @@ class Arena extends Task {
         $player->getInventory()->clearAll();
         $player->getCursorInventory()->clearAll();
         $player->getArmorInventory()->clearAll();
+        $player->removeAllEffects();
         $player->teleport($this->getServer()->getDefaultLevel()->getSpawnLocation());
         $b = $this->blocks[$player->getName()] ?? null;
         if($b instanceof Block)
