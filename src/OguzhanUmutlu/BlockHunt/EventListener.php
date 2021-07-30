@@ -35,6 +35,10 @@ class EventListener implements Listener {
                     $player->sendMessage("§c> World not found!");
                     return;
                 }
+                if (BlockHunt::getInstance()->getServer()->getDefaultLevel() === $level) {
+                    $player->sendMessage("§c> You can't create an arena in the default world");
+                    return;
+                }
                 self::$setup[$player->getName()]["map"] = $level->getFolderName();
                 self::$setup[$player->getName()]["phase"] = 2;
                 $player->teleport($level->getSpawnLocation());
