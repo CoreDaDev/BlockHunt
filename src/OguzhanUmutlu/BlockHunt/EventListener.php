@@ -116,6 +116,10 @@ class EventListener implements Listener {
                             $player->sendMessage("§c> Missing starting time.");
                             return;
                         }
+                        if(!isset($setup["maxTime"])) {
+                            $player->sendMessage("§c> Missing max time.");
+                            return;
+                        }
                         if(!($setup["spawn"] ?? null) instanceof Vector3) {
                             $player->sendMessage("§c> Missing spawn.");
                             return;
