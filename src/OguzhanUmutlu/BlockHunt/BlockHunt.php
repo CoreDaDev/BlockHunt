@@ -9,6 +9,7 @@ use OguzhanUmutlu\BlockHunt\manager\ArenaManager;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\entity\Entity;
+use pocketmine\level\Position;
 use pocketmine\math\Vector3;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
@@ -49,6 +50,11 @@ class BlockHunt extends PluginBase {
             $data->maxPlayer = $arenaData["maxPlayer"];
             $s = $arenaData["spawn"];
             $data->spawn = new Vector3($s["x"], $s["y"], $s["z"]);
+            $s = $arenaData["joinSign"];
+            if(!$this->getServer()->isLevelLoaded($s["level"]))
+                $this->getServer()->loadLevel($s["level"]);
+            $lvl = $this->getServer()->getLevelByName($s["level"]);
+            $data->joinSign = new Position($s["x"], $s["y"], $s["z"], $lvl);
             $data->startingCountdown = $arenaData["startingCountdown"];
             $data->maxTime = $arenaData["maxTime"];
             $data->map = $arenaData["map"];
