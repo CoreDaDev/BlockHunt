@@ -35,6 +35,10 @@ class EventListener implements Listener {
                     $player->sendMessage("§c> World not found!");
                     return;
                 }
+                if (BlockHunt::getInstance()->getServer()->getDefaultLevel()->getFolderName() === $level->getFolderName()) {
+                    $player->sendMessage("§c> You can't create an arena in the default world");
+                    return;
+                }
                 self::$setup[$player->getName()]["map"] = $level->getFolderName();
                 self::$setup[$player->getName()]["phase"] = 2;
                 $player->teleport($level->getSpawnLocation());
@@ -110,6 +114,10 @@ class EventListener implements Listener {
                         }
                         if(!isset($setup["startingCountdown"])) {
                             $player->sendMessage("§c> Missing starting time.");
+                            return;
+                        }
+                        if(!isset($setup["maxTime"])) {
+                            $player->sendMessage("§c> Missing max time.");
                             return;
                         }
                         if(!($setup["spawn"] ?? null) instanceof Vector3) {
